@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" fill="none">
+  <rect width="1600" height="900" fill="#0a090f"/>
+  <g fill="#c9b7ff" opacity="0.8">
+    <rect x="520" y="280" width="560" height="420"/>
+    <rect x="480" y="220" width="80" height="480"/>
+    <rect x="1040" y="220" width="80" height="480"/>
+    <polygon points="520,280 800,140 1080,280"/>
+    <rect x="760" y="500" width="80" height="200" fill="#0a090f"/>
+  </g>
+  <rect x="200" y="700" width="1200" height="24" fill="#c9b7ff" opacity="0.35"/>
+  <text x="80" y="120" fill="#c9b7ff" font-family="ui-monospace, monospace" font-size="22" letter-spacing="6">UNITY 2D // WHIP</text>
+  <text x="80" y="820" fill="#f3efff" font-family="ui-sans-serif, system-ui" font-size="72" font-weight="700">CASTLEMANIA</text>
+</svg>

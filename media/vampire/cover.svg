@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" fill="none">
+  <rect width="1600" height="900" fill="#12080c"/>
+  <circle cx="800" cy="460" r="18" fill="#ffe08a"/>
+  <g fill="#ff3b5c" opacity="0.85">
+    <circle cx="640" cy="300" r="10"/><circle cx="980" cy="280" r="8"/>
+    <circle cx="520" cy="480" r="14"/><circle cx="1100" cy="500" r="12"/>
+    <circle cx="700" cy="620" r="9"/><circle cx="920" cy="640" r="11"/>
+    <circle cx="430" cy="360" r="7"/><circle cx="1210" cy="390" r="9"/>
+    <circle cx="760" cy="240" r="6"/><circle cx="1040" cy="720" r="8"/>
+  </g>
+  <circle cx="800" cy="460" r="210" stroke="#ffe08a" stroke-dasharray="6 10" opacity="0.4"/>
+  <text x="80" y="120" fill="#ff3b5c" font-family="ui-monospace, monospace" font-size="22" letter-spacing="6">C++ // RAYLIB</text>
+  <text x="80" y="780" fill="#ffe8ee" font-family="ui-sans-serif, system-ui" font-size="64" font-weight="700">SURVIVOR ENGINE</text>
+</svg>

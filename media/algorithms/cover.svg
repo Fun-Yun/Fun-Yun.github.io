@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" fill="none">
+  <rect width="1600" height="900" fill="#0c1110"/>
+  <g fill="#86efac">
+    <rect x="180" y="520" width="70" height="220"/>
+    <rect x="280" y="400" width="70" height="340"/>
+    <rect x="380" y="460" width="70" height="280"/>
+    <rect x="480" y="300" width="70" height="440"/>
+    <rect x="580" y="360" width="70" height="380"/>
+    <rect x="680" y="240" width="70" height="500"/>
+    <rect x="780" y="420" width="70" height="320"/>
+    <rect x="880" y="280" width="70" height="460"/>
+    <rect x="980" y="500" width="70" height="240"/>
+    <rect x="1080" y="340" width="70" height="400"/>
+    <rect x="1180" y="200" width="70" height="540"/>
+    <rect x="1280" y="390" width="70" height="350"/>
+  </g>
+  <text x="80" y="120" fill="#86efac" font-family="ui-monospace, monospace" font-size="22" letter-spacing="6">C++ // BFS DFS SORT</text>
+  <text x="80" y="820" fill="#ecfdf3" font-family="ui-sans-serif, system-ui" font-size="56" font-weight="700">ALGO VISUALIZER</text>
+</svg>

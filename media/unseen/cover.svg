@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" fill="none">
+  <rect width="1600" height="900" fill="#140e0c"/>
+  <path d="M200 820 L800 180 L1400 820 Z" stroke="#e8c37a" stroke-width="1.4" opacity="0.45"/>
+  <rect x="700" y="360" width="200" height="280" stroke="#e8c37a" opacity="0.7"/>
+  <rect x="760" y="430" width="80" height="210" fill="#e8c37a" opacity="0.12"/>
+  <circle cx="800" cy="280" r="36" stroke="#ff6b3d" stroke-width="2"/>
+  <path d="M800 316 L800 360" stroke="#ff6b3d"/>
+  <text x="80" y="120" fill="#e8c37a" font-family="ui-monospace, monospace" font-size="22" letter-spacing="6">UE5 // PORTALS</text>
+  <text x="80" y="780" fill="#f4ead6" font-family="ui-sans-serif, system-ui" font-size="72" font-weight="700">THE UNSEEN</text>
+</svg>

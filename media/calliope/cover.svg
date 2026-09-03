@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" fill="none">
+  <rect width="1600" height="900" fill="#0b1014"/>
+  <g opacity="0.35" stroke="#7dffb3" stroke-width="1">
+    <path d="M80 820 L420 520 L760 820"/>
+    <path d="M280 820 L620 480 L960 820"/>
+    <path d="M840 820 L1120 390 L1400 820"/>
+    <rect x="470" y="210" width="220" height="420" rx="4"/>
+    <rect x="980" y="160" width="180" height="520" rx="4"/>
+    <circle cx="1280" cy="240" r="90"/>
+  </g>
+  <g fill="#7dffb3">
+    <circle cx="210" cy="180" r="3"/>
+    <circle cx="1380" cy="120" r="2"/>
+    <circle cx="900" cy="80" r="2"/>
+  </g>
+  <text x="80" y="120" fill="#7dffb3" font-family="ui-monospace, monospace" font-size="22" letter-spacing="6">ISO CAM // STEALTH</text>
+  <text x="80" y="780" fill="#e8f6ee" font-family="ui-sans-serif, system-ui" font-size="72" font-weight="700">USS CALLIOPE</text>
+</svg>

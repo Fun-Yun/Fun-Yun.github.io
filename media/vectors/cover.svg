@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" fill="none">
+  <rect width="1600" height="900" fill="#0a0f14"/>
+  <line x1="200" y1="700" x2="1400" y2="200" stroke="#5eead4" stroke-width="3"/>
+  <polygon points="1400,200 1320,210 1360,270" fill="#5eead4"/>
+  <line x1="200" y1="700" x2="980" y2="700" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="200" y1="700" x2="200" y2="240" stroke="#94a3b8" stroke-width="2"/>
+  <circle cx="200" cy="700" r="8" fill="#f8fafc"/>
+  <text x="80" y="120" fill="#5eead4" font-family="ui-monospace, monospace" font-size="22" letter-spacing="6">C++ DLL // UNITY INTEROP</text>
+  <text x="80" y="780" fill="#ecfeff" font-family="ui-sans-serif, system-ui" font-size="64" font-weight="700">VECTOR MATH</text>
+</svg>

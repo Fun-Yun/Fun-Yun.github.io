@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" fill="none">
+  <rect width="1600" height="900" fill="#10141c"/>
+  <circle cx="520" cy="460" r="140" stroke="#7dffb3" stroke-width="2" opacity="0.35"/>
+  <circle cx="520" cy="460" r="240" stroke="#7dffb3" stroke-width="1" opacity="0.18"/>
+  <circle cx="1080" cy="380" r="110" stroke="#6ecbff" stroke-width="2" opacity="0.4"/>
+  <circle cx="1080" cy="380" r="200" stroke="#6ecbff" stroke-width="1" opacity="0.16"/>
+  <path d="M640 430 C760 390 840 410 980 390" stroke="#ffe08a" stroke-width="2" fill="none" opacity="0.7"/>
+  <circle cx="520" cy="460" r="14" fill="#7dffb3"/>
+  <circle cx="1080" cy="380" r="14" fill="#6ecbff"/>
+  <text x="80" y="120" fill="#7dffb3" font-family="ui-monospace, monospace" font-size="22" letter-spacing="6">UE5 // PROXIMITY VOICE</text>
+  <text x="80" y="780" fill="#e7f4ff" font-family="ui-sans-serif, system-ui" font-size="58" font-weight="700">NETWORK PROX CHAT</text>
+</svg>
