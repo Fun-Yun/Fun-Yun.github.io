@@ -4,7 +4,6 @@
   const sliderEl = document.querySelector("#slider");
   const detail = document.querySelector("#detail");
   const videosEl = document.querySelector("#videos");
-  const cvEl = document.querySelector("#cv");
   const cvBtn = document.querySelector("[data-cv]");
   const mailBtn = document.querySelector("[data-mail]");
   const liBtn = document.querySelector("[data-linkedin]");
@@ -143,10 +142,25 @@
       .join("");
   }
 
+  function hasWriteup(project) {
+    return Boolean(project?.sections?.length);
+  }
+
+  function readMoreButton(project) {
+    if (!hasWriteup(project)) return "";
+    return `<a class="btn" href="project.html?id=${project.id}">Read more</a>`;
+  }
+
   function relatedLinks(project) {
     if (!project.related?.length) return "";
     return `<p class="related">${project.related
-      .map((rel) => `<a href="project.html?id=${rel.id}">${rel.label}</a>`)
+      .map((rel) => {
+        const target = PROJECTS.find((p) => p.id === rel.id);
+        if (target && hasWriteup(target)) {
+          return `<a href="project.html?id=${rel.id}">${rel.label}</a>`;
+        }
+        return `<span>${rel.label}</span>`;
+      })
       .join(" · ")}</p>`;
   }
 
@@ -414,7 +428,7 @@
     const id = new URLSearchParams(location.search).get("id");
     const project = PROJECTS.find((p) => p.id === id);
 
-    if (!project) {
+    if (!project || !hasWriteup(project)) {
       projectPage.innerHTML = `
         <section class="page-head">
           <p class="kicker">Work</p>
@@ -423,12 +437,6 @@
         </section>`;
     } else {
       document.title = `${project.title} — Euan Scott`;
-      const githubClass = project.play || project.extraLinks?.length ? "btn btn-ghost" : "btn";
-      const github = project.github
-        ? `<a class="${githubClass}" href="${project.github}" target="_blank" rel="noreferrer">GitHub repo</a>`
-        : project.comingSoon
-          ? `<span class="coming-soon">Repository coming soon</span>`
-          : "";
 
       function paint(shots) {
         const clips = projectVideos(project);
@@ -446,7 +454,6 @@
               ${playButton(project, false)}
               ${playthroughButton(project)}
               ${extraLinkButtons(project)}
-              ${github}
             </div>`;
         const shotsHTML = shots
           .map(
@@ -542,7 +549,7 @@
       </div>
       ${relatedLinks(project)}
       <div class="btn-row">
-        <a class="btn" href="project.html?id=${project.id}">Read more</a>
+        ${readMoreButton(project)}
         ${playthroughButton(project)}
       </div>
     </div>`;
@@ -623,7 +630,7 @@
             </div>
             ${relatedLinks(project)}
             <div class="btn-row">
-              <a class="btn" href="project.html?id=${project.id}">Read more</a>
+              ${readMoreButton(project)}
               ${playButton(project)}
               ${playthroughButton(project)}
               ${extraLinkButtons(project, true)}
@@ -766,32 +773,6 @@
       frame.innerHTML = youtubeIframe(id, "YouTube video", true);
       thumb.replaceWith(frame);
     });
-  }
-
-  if (cvEl) {
-    function cvItems(items) {
-      return items
-        .map(
-          (item) => `
-        <article class="cv-item">
-          <p class="cv-dates">${item.dates}</p>
-          <h4>${item.title}</h4>
-          <p class="cv-place">${item.place}${item.location ? ` · ${item.location}` : ""}</p>
-          <p>${item.notes || ""}</p>
-        </article>`
-        )
-        .join("");
-    }
-    cvEl.innerHTML = `
-      <div class="cv-col">
-        <h3>Education</h3>
-        ${cvItems(EDUCATION)}
-      </div>
-      <div class="cv-col">
-        <h3>Jobs</h3>
-        ${JOBS.length ? cvItems(JOBS) : `<p class="cv-empty">No jobs listed yet.</p>`}
-      </div>
-    `;
   }
 
   if (funyunEls.length) {
