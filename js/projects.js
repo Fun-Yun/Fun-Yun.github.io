@@ -5,7 +5,7 @@ const SITE = {
   school: "Forsbergs Skola",
   github: "https://github.com/Fun-Yun",
   youtube: "https://www.youtube.com/@Featherweight",
-  email: "",
+  email: "escott2245@gmail.com",
   linkedin: "",
   cv: "media/EuanScott-CV.pdf",
 };

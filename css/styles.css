@@ -298,6 +298,19 @@ a {
   margin-bottom: 0.85em;
 }
 
+.contrib-title {
+  margin: 0.2rem 0 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mark);
+}
+
+.hero-copy .contrib-title {
+  margin-top: 0.65rem;
+}
+
 .section-title {
   margin: 0 1.5rem 0.7rem;
   font-family: var(--font-mono);
@@ -357,6 +370,22 @@ a {
   color: var(--stage-mute);
 }
 
+.home-contact {
+  padding: 2.2rem 1.5rem 3rem;
+}
+
+.contact-list-compact {
+  max-width: 26rem;
+}
+
+.contact-list-compact li {
+  padding: 0.55rem 0;
+}
+
+.contact-list-compact a {
+  font-size: 1.25rem;
+}
+
 .chips {
   display: flex;
   flex-wrap: wrap;
@@ -380,7 +409,7 @@ a {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 0.7rem;
-  padding: 0 1.5rem;
+  padding: 0.45rem 1.5rem 0.85rem;
   scroll-margin-top: 4.2rem;
 }
 
@@ -398,6 +427,8 @@ a {
 
 .feature.is-active {
   border-color: var(--mark);
+  outline: 3px solid var(--mark);
+  outline-offset: 4px;
 }
 
 .feature img {
@@ -416,6 +447,10 @@ a {
   left: 0;
   right: 0;
   bottom: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.7rem;
   padding: 0.55rem 0.85rem 0.5rem;
   background: rgba(6, 8, 12, 0.58);
   box-shadow: 0 -1.6rem 2.1rem rgba(0, 0, 0, 0.62);
@@ -779,10 +814,26 @@ a {
 }
 
 .slider {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 280px));
   justify-content: center;
-  flex-wrap: wrap;
   gap: 0.7rem;
+}
+
+.slide-panel.detail {
+  margin: 0.7rem 0 0;
+}
+
+.see-more {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  white-space: nowrap;
+  background: var(--mark);
+  padding: 0.28rem 0.5rem;
 }
 
 .slide {
@@ -801,6 +852,8 @@ a {
 
 .slide.is-active {
   border-color: var(--mark);
+  outline: 3px solid var(--mark);
+  outline-offset: 4px;
 }
 
 .slide img {
@@ -814,6 +867,10 @@ a {
   left: 0;
   right: 0;
   bottom: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.6rem;
   padding: 0.45rem 0.7rem 0.4rem;
   background: rgba(6, 8, 12, 0.58);
   box-shadow: 0 -1.2rem 1.6rem rgba(0, 0, 0, 0.62);

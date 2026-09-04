@@ -3,9 +3,9 @@
   const featuredEl = document.querySelector("#featured");
   const sliderEl = document.querySelector("#slider");
   const detail = document.querySelector("#detail");
+  const moreDetail = document.querySelector("#more-detail");
   const videosEl = document.querySelector("#videos");
   const cvBtn = document.querySelector("[data-cv]");
-  const mailBtn = document.querySelector("[data-mail]");
   const liBtn = document.querySelector("[data-linkedin]");
   const funyunEls = [...document.querySelectorAll(".funyun")];
 
@@ -13,11 +13,13 @@
   const FEATURED_IDS = ["calliope", "smoltheft", "proxchat"];
   const HOME_IDS = [HERO_ID, ...FEATURED_IDS];
 
-  if (SITE.email && mailBtn) {
-    mailBtn.href = `mailto:${SITE.email}`;
-    mailBtn.hidden = false;
-    mailBtn.textContent = SITE.email;
-    mailBtn.closest("[data-mail-row]")?.removeAttribute("hidden");
+  if (SITE.email) {
+    document.querySelectorAll("[data-mail]").forEach((btn) => {
+      btn.href = `mailto:${SITE.email}`;
+      btn.hidden = false;
+      btn.textContent = SITE.email;
+      btn.closest("[data-mail-row]")?.removeAttribute("hidden");
+    });
   }
   if (SITE.linkedin && liBtn) {
     liBtn.href = SITE.linkedin;
@@ -128,7 +130,7 @@
     const featured = featuredClip(project);
     const clip = featured || clips[0];
     if (!clip) return "";
-    const label = featured ? featured.label : "Video";
+    const label = /playthrough/i.test(clip.label) ? "Watch playthrough" : clip.label;
     return `<a class="${ghost ? "btn btn-ghost" : "btn"}" href="https://www.youtube.com/watch?v=${clip.youtube}" target="_blank" rel="noreferrer">${label}</a>`;
   }
 
@@ -506,6 +508,12 @@
     }
   }
 
+  function shippedBlock(project) {
+    if (!project.shipped?.length) return "";
+    return `<h3 class="contrib-title">My contributions</h3>
+      <ul class="shipped">${shippedItems(project)}</ul>`;
+  }
+
   function shippedItems(project) {
     return project.shipped
       .map((item) => {
@@ -543,7 +551,7 @@
       <h2>${project.title}</h2>
       ${roleLine(project)}
       <p class="lede">${project.overview}</p>
-      <ul class="shipped">${shippedItems(project)}</ul>
+      ${shippedBlock(project)}
       <div class="tags">
         ${project.tags.map((t) => `<span class="tag">${t}</span>`).join("")}
       </div>
@@ -570,8 +578,11 @@
         <button class="feature" type="button" data-id="${project.id}">
           <img src="${project.cover}" alt="${project.title}" />
           <div class="feature-copy">
-            <h2>${project.title}</h2>
-            <p>${project.engine} · ${project.year}</p>
+            <div>
+              <h2>${project.title}</h2>
+              <p>${project.engine} · ${project.year}</p>
+            </div>
+            <span class="see-more">See more</span>
           </div>
         </button>`
       )
@@ -583,8 +594,11 @@
         <button class="slide" type="button" data-id="${project.id}">
           <img src="${project.cover}" alt="${project.title}" />
           <div class="slide-copy">
-            <h3>${project.title}</h3>
-            <p>${project.engine} · ${project.year}</p>
+            <div>
+              <h3>${project.title}</h3>
+              <p>${project.engine} · ${project.year}</p>
+            </div>
+            <span class="see-more">See more</span>
           </div>
         </button>`
       )
@@ -603,7 +617,8 @@
       </div>`;
     }
 
-    function renderDetail(project, shots) {
+    function renderDetail(project, shots, root) {
+      const target = root || detail;
       const video = mediaEmbed(project);
       const shotsHTML = shots
         .map(
@@ -614,7 +629,7 @@
         )
         .join("");
 
-      detail.innerHTML = `
+      target.innerHTML = `
         <div class="detail-inner">
           <div class="media-row">
             ${video}
@@ -624,7 +639,7 @@
             <h3>${project.title}</h3>
             ${roleLine(project)}
             <p class="lede">${project.overview}</p>
-            <ul class="shipped">${shippedItems(project)}</ul>
+            ${shippedBlock(project)}
             <div class="tags">
               ${project.tags.map((t) => `<span class="tag">${t}</span>`).join("")}
             </div>
@@ -639,7 +654,7 @@
         </div>
       `;
 
-      detail.querySelectorAll(".shot").forEach((el) => {
+      target.querySelectorAll(".shot").forEach((el) => {
         el.addEventListener("click", () => openLightbox(el.dataset.src, project.title));
       });
     }
@@ -658,16 +673,39 @@
       }
     }
 
-    function setActive(id) {
-      document.querySelectorAll(".feature, .slide").forEach((el) => {
+    function setFeaturedActive(id) {
+      featuredEl.querySelectorAll(".feature").forEach((el) => {
         el.classList.toggle("is-active", el.dataset.id === id);
       });
     }
 
-    function centerDetail() {
+    function clearPanel(root) {
+      if (!root) return;
+      root.querySelectorAll("video").forEach((el) => {
+        el.pause();
+        el.removeAttribute("src");
+        el.load();
+      });
+      const iframe = root.querySelector("iframe");
+      if (iframe) iframe.src = "";
+      root.innerHTML = "";
+    }
+
+    function closeMorePanels() {
+      sliderEl.querySelectorAll(".slide").forEach((el) => {
+        el.classList.remove("is-active");
+      });
+      if (moreDetail) {
+        clearPanel(moreDetail);
+        moreDetail.hidden = true;
+      }
+    }
+
+    function centerEl(el) {
+      if (!el) return;
       requestAnimationFrame(() => {
         const headerH = document.querySelector(".topbar")?.offsetHeight || 0;
-        const rect = detail.getBoundingClientRect();
+        const rect = el.getBoundingClientRect();
         const available = window.innerHeight - headerH;
         const extra = Math.max(0, (available - rect.height) / 2);
         const y = window.scrollY + rect.top - headerH - extra;
@@ -675,45 +713,57 @@
       });
     }
 
-    async function openProject(id) {
+    async function openProject(id, opts = {}) {
       const project = PROJECTS.find((p) => p.id === id);
       if (!project) return;
-      setActive(id);
+      closeMorePanels();
+      setFeaturedActive(id);
       setHeroCollapsed(true);
       detail.hidden = false;
-      renderDetail(project, project.shots.filter(Boolean));
-      centerDetail();
+      renderDetail(project, project.shots.filter(Boolean), detail);
+      if (opts.scroll !== false) centerEl(detail);
       const shots = await probeLocalShots(project);
       if (detail.hidden) return;
-      const stillThis = document.querySelector(".is-active")?.dataset.id === id;
+      const stillThis = featuredEl.querySelector(".feature.is-active")?.dataset.id === id;
       const sameShots = JSON.stringify(shots) === JSON.stringify(project.shots.filter(Boolean));
-      if (stillThis && !sameShots) renderDetail(project, shots);
+      if (stillThis && !sameShots) renderDetail(project, shots, detail);
     }
 
     function closeProject() {
-      detail.querySelectorAll("video").forEach((el) => {
-        el.pause();
-        el.removeAttribute("src");
-        el.load();
-      });
-      const iframe = detail.querySelector("iframe");
-      if (iframe) iframe.src = "";
+      clearPanel(detail);
       detail.hidden = true;
-      detail.innerHTML = "";
-      setActive(null);
+      setFeaturedActive(null);
       setHeroCollapsed(false);
       closeLightbox();
     }
 
-    function onPick(id, alreadyActive) {
-      if (alreadyActive) closeProject();
-      else openProject(id);
+    async function openMore(id) {
+      const project = PROJECTS.find((p) => p.id === id);
+      if (!project || !moreDetail) return;
+      closeProject();
+      closeMorePanels();
+      const btn = sliderEl.querySelector(`.slide[data-id="${id}"]`);
+      btn?.classList.add("is-active");
+      moreDetail.hidden = false;
+      renderDetail(project, project.shots.filter(Boolean), moreDetail);
+      centerEl(moreDetail);
+      const shots = await probeLocalShots(project);
+      if (moreDetail.hidden) return;
+      const stillThis = sliderEl.querySelector(".slide.is-active")?.dataset.id === id;
+      const sameShots = JSON.stringify(shots) === JSON.stringify(project.shots.filter(Boolean));
+      if (stillThis && !sameShots) renderDetail(project, shots, moreDetail);
+    }
+
+    function closeMore(id) {
+      closeMorePanels();
+      closeLightbox();
     }
 
     featuredEl.addEventListener("click", (e) => {
       const btn = e.target.closest(".feature");
       if (!btn) return;
-      onPick(btn.dataset.id, btn.classList.contains("is-active"));
+      if (btn.classList.contains("is-active")) closeProject();
+      else openProject(btn.dataset.id);
     });
 
     heroEl.addEventListener("click", (e) => {
@@ -736,9 +786,12 @@
     });
 
     sliderEl.addEventListener("click", (e) => {
+      if (e.target.closest("a") || e.target.closest(".shot")) return;
       const btn = e.target.closest(".slide");
       if (!btn) return;
-      onPick(btn.dataset.id, btn.classList.contains("is-active"));
+      const id = btn.dataset.id;
+      if (btn.classList.contains("is-active")) closeMore(id);
+      else openMore(id);
     });
 
     document.addEventListener("keydown", (e) => {
@@ -746,8 +799,11 @@
         const box = document.querySelector("#lightbox");
         if (box && !box.hidden) closeLightbox();
         else if (!detail.hidden) closeProject();
+        else if (moreDetail && !moreDetail.hidden) closeMore();
       }
     });
+
+    openProject("calliope", { scroll: false });
   }
 
   if (videosEl) {
